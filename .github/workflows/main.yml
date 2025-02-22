@@ -2,29 +2,26 @@ name: Restart Codespace Every 6 Hours
 
 on:
   schedule:
-    - cron: '0 */6 * * *'  # Runs every 6 hours on the hour
+    - cron: '0 */6 * * *'  # Every 6 hours
+  workflow_dispatch:  # Allows manual triggering
 
 jobs:
-  restart_codespace:
+  restart-codespace:
     runs-on: ubuntu-latest
-
+    
     steps:
-      - name: Set up GitHub CLI
-        run: |
-          sudo apt-get install gh  # Install GitHub CLI to interact with GitHub API
+    - name: Stop Codespace
+      run: |
+        gh codespace stop --name your-codespace-name
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Stop Codespace
-        run: |
-          gh codespace stop --name supreme-spoon-gwxwv6vrx5hwjww
-        env:
-          GITHUB_TOKEN: ${{ secrets.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 }}
+    - name: Wait for 30 seconds
+      run: sleep 30
 
-      - name: Wait for a brief moment before restarting
-        run: |
-          sleep 30  # Optional: wait 30 seconds before restarting
+    - name: Restart Codespace
+      run: |
+        gh codespace start --name your-codespace-name
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Restart Codespace
-        run: |
-          gh codespace start --name supreme-spoon-gwxwv6vrx5hwjww
-        env:
-          GITHUB_TOKEN: ${{ secrets.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 }}
