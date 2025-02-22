@@ -10,11 +10,13 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+    - name: Authenticate with GitHub CLI
+      run: |
+        echo ${{ secrets.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 }} | gh auth login --with-token
+
     - name: Stop Codespace
       run: |
         gh codespace stop -c supreme-spoon-gwxwv6vrx5hwjww
-      env:
-        GITHUB_TOKEN: ${{ secrets.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 }}
 
     - name: Wait for 30 seconds
       run: sleep 30
@@ -22,6 +24,3 @@ jobs:
     - name: Restart Codespace
       run: |
         gh codespace start -c supreme-spoon-gwxwv6vrx5hwjww
-      env:
-        GITHUB_TOKEN: ${{ secrets.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 }}
-
