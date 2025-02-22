@@ -12,16 +12,16 @@ jobs:
     steps:
     - name: Stop Codespace
       run: |
-        gh codespace stop --name your-codespace-name
+        gh codespace stop -c supreme-spoon-gwxwv6vrx5hwjww
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.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 }}
 
     - name: Wait for 30 seconds
       run: sleep 30
 
     - name: Restart Codespace
       run: |
-        gh codespace start --name your-codespace-name
+        gh codespace start -c supreme-spoon-gwxwv6vrx5hwjww
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.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 }}
 
